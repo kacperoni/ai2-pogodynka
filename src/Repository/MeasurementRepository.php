@@ -28,14 +28,25 @@ class MeasurementRepository extends ServiceEntityRepository
 
         $qb->where('m.location = :location')
             ->setParameter('location', $location)
-            ->andWhere('m.date > :now')
+            ->andWhere('m.date < :now')
             ->setParameter('now', date('Y-m-d'));
 
         $query = $qb->getQuery();
-
         $result = $query->getResult();
 
         return $result;
+    }
+
+    /** @return Measurement[] */
+    public function findByCountryCodeAndCity(string $countryCode, string $city): array
+    {
+        return $this->createQueryBuilder('m',)
+            ->join('m.location','l')
+            ->where('l.country = :country')
+            ->setParameter('country', $countryCode)
+            ->andWhere('l.city = :city')
+            ->setParameter('city', $city)
+            ->getQuery()->getResult();
     }
 
 //    /**
