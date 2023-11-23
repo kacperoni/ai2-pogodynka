@@ -1,0 +1,3 @@
+{% for measurement in measurements %}
+{{ city }}, {{ country }}, {{ measurement.date|date("Y-m-d") }}, {{ measurement.celsius }}, {{ measurement.getFahrenheit() }}<br>
+{% endfor %}
